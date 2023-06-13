@@ -3,15 +3,22 @@ from fastapi import FastAPI
 import pika
 import json
 import uvicorn
+import socket
+
+DOCKER_HOST = "172.17.0.1"
 
 def send_to_queen(cep: str):
-    connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
-    channel = connection.channel()
-    channel.queue_declare(queue='hello')
-    channel.basic_publish(exchange='', routing_key='hello', body=json.dumps(cep))
-    print(f" [x] Sent body >> {cep}")
+    try:
+        connection = pika.BlockingConnection(pika.ConnectionParameters(DOCKER_HOST))
+        channel = connection.channel()
+        channel.queue_declare(queue='hello')
+        channel.basic_publish(exchange='', routing_key='hello', body=json.dumps(cep))
+        print(f" [x] Sent body >> {cep}")
 
-    connection.close()
+        connection.close()
+    except Exception as e:
+        #print(e)
+        print('Falha ao connectar no host')
 
 app = FastAPI()
 
@@ -21,7 +28,7 @@ def send(cep: str):
     return {"enviado 🚀": cep}
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="127.0.0.1", port=5000, log_level="info")
+    uvicorn.run("main:app", host="0.0.0.0", port=5000, log_level="info")
 
 
 """

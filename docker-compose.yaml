@@ -1,14 +1,5 @@
 version: "3.9"
 services:
-
-  mongodb:
-    image: mongo:4.4.6
-    ports:
-      - '27017:27017'
-    volumes:
-      - dbdata6:/data/db
-
-
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: 'rabbitmq'
@@ -19,11 +10,48 @@ services:
         - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
         - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
     networks:
-        - rabbitmq_go_net
+      - rabbitmq_go_net
+  #----------------------------------------------------------------
+  mongodb:
+    container_name: 'mongodb'
+    image: mongo:4.4.6
+    ports:
+      - '27017:27017'
+    volumes:
+      - dbdata6:/data/db
+  #----------------------------------------------------------------
+  producer-app:
+    build:
+      context: .
+      dockerfile: producer.dockerfile
+    command: bash -c "chmod +x run.sh && ./run.sh"       
+    restart: on-failure
+    ports:
+      - 5000:5000
+    depends_on:
+      - rabbitmq
+      - mongodb
+  #----------------------------------------------------------------
 
+  consumer-app:
+    build:
+      context: .
+      dockerfile: consumer.dockerfile
+    command: bash -c "chmod +x run.sh && ./run.sh"
+    restart: on-failure
+    ports:
+      - 5001:5001
+    depends_on:
+      - rabbitmq
+      - mongodb
+    links:
+      - rabbitmq
+      - mongodb
+
+#----------------------------------------------------------------
 volumes:
   dbdata6:
-
+#----------------------------------------------------------------
 networks:
   rabbitmq_go_net:
     driver: bridge

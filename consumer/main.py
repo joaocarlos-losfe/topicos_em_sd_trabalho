@@ -7,8 +7,10 @@ from datetime import datetime
 import uuid
 import pymongo
 
+DOCKER_HOST = "172.17.0.1"
+
 def insert_on_database(data: dict):
-    client = pymongo.MongoClient()
+    client = pymongo.MongoClient(f"mongodb://{DOCKER_HOST}/27017")
     db = client["weather"]
     
     result = db["weather"].insert_one({
@@ -64,14 +66,13 @@ def callback(ch, method, properties, body):
     weather = getTemperature(cep)
 
     if weather:
-        insert_on_database(weather)
         print(weather)
+        insert_on_database(weather)
 
     print(' [*] Aguardando menssagens. CTRL+C para sair')
-
     
 def main():
-    connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(DOCKER_HOST))
     channel = connection.channel()
     channel.queue_declare(queue='hello')
     channel.basic_consume(queue='hello', auto_ack=True, on_message_callback=callback)
@@ -82,7 +83,6 @@ def main():
 
 if __name__ == '__main__':
     try:
-
         main()
     except KeyboardInterrupt:
         print('Interrupted')
