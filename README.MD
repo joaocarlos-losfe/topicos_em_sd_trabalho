@@ -34,10 +34,7 @@
 
 <section>
 <ul>
-<a href="https://www.youtube.com/embed/q6b7HgNYLV0" target="_blank">
- <img src="http://img.youtube.com/vi/q6b7HgNYLV0/mqdefault.jpg" alt="Watch the video" width="1280" height="720"/>
-</a>
-    <iframe width="960" height="540" src="" title="Docker Compose demo: Produtor, RabbitMQ (sistema de fila), Consumidor e Banco de Dados (Mongodb)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<a href="https://youtu.be/q6b7HgNYLV0" target="_blank">clique para abir o video demonstração</a>    
 </ul>
 </section>
 </main>
