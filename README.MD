@@ -1,11 +1,41 @@
 
-<h1>checar ip do docker: ip addr show docker0</h1>
-<h2>passo 1</h2>
-- rodar o docker compose com o comando: docker-compose up
-<h2>#Passo 2</h2>
-- rodar o script da pasta producer: chmod +x run.sh && ./run.sh
-- rodar o script da pasta consummer: chmod +x run.sh && ./run.sh
-<h2>#passo 3</h2>
-- abrir o navegador 127.0.0.1:5000/docs (caso não funcione, no terminal do producer tem o endereço correto)
-<h2>#passo 4</h2>
-- instalar o mongodb compass e abrir o banco de dados padrão
+<main>
+<section>
+<ul>
+    <h1>Tópicos em sistemas distribuidos</h1>
+    <h2>Grupo</h2>
+    <li>João Carlos de Sousa Fé</li>
+    <li>Joanny Eva Pacheco</li>
+</ul>
+</section>
+<section>
+<ol>
+<li>
+    <i>rodar o docker compose com o comando: $</i> <b>docker-compose up</b>
+</li>
+
+<li>
+    <i> abrir o navegador no endereço: </i> <a href="127.0.0.1:5000/docs">127.0.0.1:5000/docs</a>
+</li>
+
+<li>
+<i>instalar o <b>mongodb compass</b> e abrir o banco de dados padrão</i>
+</li>
+
+<li>
+<i>parar o container do consumidor com o comando: $</i> <b>docker stop container-name</b>
+</li>
+
+<li>
+<i>retomar o container do consumidor com o comando: $ </i> <b>docker run --name consumer-app -it topicos_em_sd_consumer-app bash -c "./run.sh"</b>
+</li>
+</ol>
+</section>
+
+<section>
+
+</section>
+</main>
+
+
+[![video demonstração](https://img.youtube.com/vi/q6b7HgNYLV0/default.jpg)](https://youtu.be/q6b7HgNYLV0)
