@@ -5,7 +5,7 @@
     <h1>Tópicos em sistemas distribuidos</h1>
     <h2>Grupo</h2>
     <li>João Carlos de Sousa Fé</li>
-    <li>Joanny Eva Pacheco</li>
+    <li>Joanny Eva Pacheco Monteiro</li>
 </ul>
 </section>
 <section>
