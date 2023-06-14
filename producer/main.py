@@ -5,11 +5,9 @@ import json
 import uvicorn
 import socket
 
-DOCKER_HOST = "172.17.0.1"
-
 def send_to_queen(cep: str):
     try:
-        connection = pika.BlockingConnection(pika.ConnectionParameters(DOCKER_HOST))
+        connection = pika.BlockingConnection(pika.ConnectionParameters("172.17.0.1"))
         channel = connection.channel()
         channel.queue_declare(queue='hello')
         channel.basic_publish(exchange='', routing_key='hello', body=json.dumps(cep))

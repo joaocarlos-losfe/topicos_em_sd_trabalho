@@ -28,9 +28,6 @@ services:
     restart: on-failure
     ports:
       - 5000:5000
-    depends_on:
-      - rabbitmq
-      - mongodb
   #----------------------------------------------------------------
 
   consumer-app:
@@ -41,12 +38,6 @@ services:
     restart: on-failure
     ports:
       - 5001:5001
-    depends_on:
-      - rabbitmq
-      - mongodb
-    links:
-      - rabbitmq
-      - mongodb
 
 #----------------------------------------------------------------
 volumes:

@@ -27,7 +27,7 @@
 </li>
 
 <li>
-<i>retomar o container do consumidor com o comando: $ </i> <b>docker run --name consumer-app -it topicos_em_sd_consumer-app bash -c "./run.sh"</b>
+<i>retomar o container do consumidor com o comando: $ </i> <b>docker run --name new_image_name -it image_id bash -c "./run.sh"</b>
 </li>
 </ol>
 </section>
@@ -35,7 +35,8 @@
 <section>
 <ul>
 
-<a href="https://youtu.be/q6b7HgNYLV0" target="_blank">clique para abir o video demonstração</a>    
+<img src="https://logodownload.org/wp-content/uploads/2014/10/youtube-logo-2-3.png"/>
+<a href="https://youtu.be/uQEpOfwvTDI" target="_blank">clique aqui para abir o video demonstração</a>    
 </ul>
 </section>
 </main>
