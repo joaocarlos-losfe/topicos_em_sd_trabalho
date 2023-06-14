@@ -36,6 +36,3 @@
 
 </section>
 </main>
-
-
-[![video demonstração](https://img.youtube.com/vi/q6b7HgNYLV0/default.jpg)](https://youtu.be/q6b7HgNYLV0)
