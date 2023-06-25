@@ -9,14 +9,10 @@ import pymongo
 
 def insert_on_database(data: dict):
     client = pymongo.MongoClient(f"mongodb://172.17.0.1/27017")
-    db = client["weather"]
-    
-    result = db["weather"].insert_one({
-        **data
-    })
-
+    db = client["city_data"]
+    result = db["city_data"].insert_one({ **data})
     print("inserted data on database")
-    print(result)
+    
 
 def get_api_data(api_url:str):
     response = requests.get(api_url)
@@ -26,31 +22,12 @@ def get_api_data(api_url:str):
     return None
 
 def getTemperature(cep:str):
-    api_url_cep = f"https://brasilapi.com.br/api/cep/v2/{cep}"
-    
-    city_data = get_api_data(api_url_cep)
+
+    api_url = f"https://brasilapi.com.br/api/cep/v2/{cep}"
+    city_data = get_api_data(api_url)
     
     if city_data:
-        
-        city = city_data["city"].lower()
-        state = city_data["state"]
-        street = city_data["street"]
-        api_url_weather = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid=d1af9eb638a7a24e06f0889f9e2c6a0d&lang=pt_br&units=metric"
-        
-        weather_result = get_api_data(api_url_weather)
-
-        if weather_result:
-            temperature = weather_result["main"]["temp"]
-            return {
-                "_id": uuid.uuid4().hex,
-                "data": str(datetime.now()),
-                "temperatura": f"{temperature}°", 
-                "cidade": city,
-                "estado": state,
-                "rua": street
-            }
-        else:
-            print('a API não encontrou a cidade')
+        return city_data
     else:
         print("CEP invalido")
     
@@ -61,11 +38,11 @@ def callback(ch, method, properties, body):
     print("[x] Mensagem recebida ✅\nProcessando...")
     cep = str(body.decode("UTF-8")).removeprefix("\"").removesuffix("\"")
     print(cep)
-    weather = getTemperature(cep)
+    data = getTemperature(cep)
 
-    if weather:
-        print(weather)
-        insert_on_database(weather)
+    if data:
+        insert_on_database(data)
+        print(data)
 
     print(' [*] Aguardando menssagens. CTRL+C para sair')
     
@@ -92,3 +69,27 @@ if __name__ == '__main__':
 """
 ceps: ["95020-360", "64602-990", "01153-000"]
 """
+"""
+if city_data:
+        
+        city = city_data["city"].lower()
+        state = city_data["state"]
+        street = city_data["street"]
+        api_url_weather = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid=d1af9eb638a7a24e06f0889f9e2c6a0d&lang=pt_br&units=metric"
+        
+        weather_result = get_api_data(api_url_weather)
+        
+
+        if weather_result:
+            temperature = weather_result["main"]["temp"]
+            return {
+                "_id": uuid.uuid4().hex,
+                "data": str(datetime.now()),
+                "temperatura": f"{temperature}°", 
+                "cidade": city,
+                "estado": state,
+                "rua": street
+            }
+        else:
+            print('a API não encontrou a cidade')
+        """
