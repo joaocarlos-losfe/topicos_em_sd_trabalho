@@ -19,30 +19,21 @@ def get_api_data(api_url:str):
     if response.status_code == 200:
         return response.json()
     
-    return None
-
-def getTemperature(cep:str):
-
-    api_url = f"https://brasilapi.com.br/api/cep/v2/{cep}"
-    city_data = get_api_data(api_url)
+    return None    
     
-    if city_data:
-        return city_data
-    else:
-        print("CEP invalido")
-    
-    
-    return None
-
 def callback(ch, method, properties, body):
     print("[x] Mensagem recebida ✅\nProcessando...")
     cep = str(body.decode("UTF-8")).removeprefix("\"").removesuffix("\"")
     print(cep)
-    data = getTemperature(cep)
+    api_url = f"https://brasilapi.com.br/api/cep/v2/{cep}"
+    city_data = get_api_data(api_url)
+    
 
-    if data:
-        insert_on_database(data)
-        print(data)
+    if city_data:
+        insert_on_database(city_data)
+        print(city_data)
+    else:
+        print("cep invalido")
 
     print(' [*] Aguardando menssagens. CTRL+C para sair')
     
