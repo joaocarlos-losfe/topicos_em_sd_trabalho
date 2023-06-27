@@ -32,12 +32,5 @@
 </ol>
 </section>
 
-<section>
-<ul>
-
-<img src="https://logodownload.org/wp-content/uploads/2014/10/youtube-logo-2-3.png"/>
-<a href="https://youtu.be/uQEpOfwvTDI" target="_blank">clique aqui para abir o video demonstração</a>    
-</ul>
-</section>
 </main>
 
